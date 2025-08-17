@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Firebase Connection Test</title>
+</head>
+<body>
+    <h1>Firebase Connection Test</h1>
+    <p>Open the browser console (F12) and click the button.</p>
+    <button id="test-btn">Test Sign-In</button>
+
+    <script type="module">
+        //
+        // STEP 1: PASTE YOUR FIREBASE CONFIG OBJECT HERE
+        // Get this from your Firebase Console -> Project Settings
+        //
+        const firebaseConfig = {
+  apiKey: "AIzaSyDQKnii-E9Z96shtEJXFBdiZLnrWGutXhU",
+  authDomain: "headstonememorial.firebaseapp.com",
+  projectId: "headstonememorial",
+  storageBucket: "headstonememorial.firebasestorage.app",
+  messagingSenderId: "45248353162",
+  appId: "1:45248353162:web:fa93be0ad02af1e14d6e73"
+};
+
+        // --- Do not change the code below this line ---
+
+        // Import the functions we need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        try {
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+            console.log("Firebase initialized successfully with project:", firebaseConfig.projectId);
+
+            // Add a click listener to the button
+            document.getElementById('test-btn').addEventListener('click', () => {
+                console.log("Attempting test sign-in with dummy credentials...");
+                signInWithEmailAndPassword(auth, "test@example.com", "fakepassword123")
+                    .then((userCredential) => {
+                        console.log("Sign-in success (this is unexpected):", userCredential.user);
+                    })
+                    .catch((error) => {
+                        console.error("Sign-in failed as expected. Analyzing error...");
+                        if (error.code === 'auth/invalid-api-key') {
+                            console.error(">>> DEFINITIVE ERROR: The API key is invalid.", error);
+                        } else if (error.code === 'auth/invalid-credential') {
+                            console.log("%c>>> SUCCESSFUL TEST: Received 'invalid-credential'. This means the API key IS VALID and the connection worked!", "color: green; font-size: 1.2em;");
+                        } else {
+                            console.error(">>> UNEXPECTED ERROR:", error);
+                        }
+                    });
+            });
+
+        } catch (error) {
+            console.error("CRITICAL FAILURE: Firebase failed to initialize.", error);
+        }
+    </script>
+</body>
+</html>

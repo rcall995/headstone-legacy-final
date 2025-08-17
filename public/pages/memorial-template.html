@@ -1,0 +1,85 @@
+<div class="container py-4">
+    <div id="no-memorial-message" class="alert alert-warning text-center" style="display:none;">Memorial not found.</div>
+    
+    <div id="memorial-layout-container" style="display:none;">
+        <div class="row g-lg-5">
+            <div class="col-lg-4">
+                <div id="memorial-left-column">
+                    <div id="display-main-media" class="mb-3 text-center">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 300px;"><i class="fas fa-image fa-3x text-muted"></i></div>
+                    </div>
+                    <div class="memorial-header mb-4 text-center">
+                        <h1 id="display-name" class="display-4"></h1>
+                        <p id="display-dates" class="h5 fw-light"></p>
+                    </div>
+                    <div id="memorial-actions" class="mb-4 text-center d-grid gap-2">
+                        <button id="share-button" class="btn btn-info"><i class="fas fa-share-alt"></i> Share</button>
+                        <button id="upgrade-plan-button" class="btn btn-success" style="display:none;"><i class="fas fa-arrow-alt-circle-up"></i> Upgrade Plan</button>
+                        <button class="btn btn-primary" id="edit-memorial-button" style="display:none;"><i class="fas fa-pencil-alt"></i> Edit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card card-body mb-4">
+                    <h3 class="mb-3">Biography</h3>
+                    <p id="display-bio" class="lead"></p>
+                </div>
+                <div id="milestones-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Life Milestones</h3>
+                    <ul id="display-milestones" class="list-group"></ul>
+                </div>
+                <div id="quotes-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Favorite Quotes</h3>
+                    <ul id="display-quotes" class="list-unstyled"></ul>
+                </div>
+                <div id="photos-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Photo Gallery</h3>
+                    <div id="display-photos" class="row g-2"></div>
+                </div>
+                <div id="historian-content-display" style="display:none;">
+                    <div class="card card-body mb-4">
+                        <h3 class="mb-3">Cemetery Location</h3>
+                        <p><strong>Address:</strong> <span id="display-cemetery-address"></span></p>
+                        <div id="map-container" class="rounded" style="height: 300px; width: 100%;"></div>
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="/scout-mode" id="improve-location-btn" class="btn btn-success py-3 fs-5 fw-bold" style="display: none;"><i class="fas fa-map-marker-alt me-2"></i>Please help us improve this PRECISE grave location</a>
+                            <a href="/scout-mode" id="pin-new-relative-btn" class="btn btn-primary" style="display: none;"><i class="fas fa-plus me-2"></i>Pin a Nearby Relative's Memorial</a>
+                        </div>
+                    </div>
+                    <div id="relatives-section-display" class="card card-body mb-4" style="display:none;">
+                        <h3 class="mb-3">Known Relatives</h3>
+                        <ul id="display-relatives" class="list-group"></ul>
+                    </div>
+                </div>
+                <div id="tributes-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Visitor Tributes</h3>
+                    <div id="display-tributes"></div>
+                    <button id="openTributeModalBtn" class="btn btn-outline-primary mt-3"><i class="fas fa-pen-nib"></i> Leave Your Tribute</button>
+                </div>
+                <div id="scout-promo-section" class="card card-body bg-light">
+                    <h3 class="mb-3">Help Grow This Family Tree</h3>
+                    <p>Become a Legacy Scout to help map the graves of other relatives. By finding and pinning their memorials, you can connect the branches of this family tree for future generations to discover.</p>
+                    <a href="/scout" class="btn btn-secondary mt-2">Learn About the Scout Program</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="relative-item-template">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span class="relative-info"></span>
+        <div>
+            <a href="#" class="btn btn-sm btn-outline-secondary view-memorial-btn" style="display: none;">View Memorial <i class="fas fa-arrow-right fa-sm"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-primary find-pin-btn" style="display: none;"><i class="fas fa-map-pin"></i> Find & Pin</a>
+        </div>
+    </li>
+</template>
+
+<div class="modal" id="tributeModal" tabindex="-1">
+    </div>
+<div class="modal" id="welcomeModal" tabindex="-1">
+    </div>
+<div class="modal" id="upgradeModal" tabindex="-1">
+    </div>

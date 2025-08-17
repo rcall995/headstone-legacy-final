@@ -1,0 +1,46 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    function isScoutOrAdmin() {
+      return request.auth != null && (
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true ||
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isScout == true
+      );
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    match /memorials/{memorialId} {
+      // --- THIS IS THE KEY CHANGE ---
+      // This single rule allows anyone to read a published memorial (for the homepage map/lists)
+      // AND allows owners or admins to read their own drafts/pending memorials.
+      allow read: if resource.data.status == 'published'
+                  || (request.auth != null && request.auth.uid == resource.data.curatorId)
+                  || isScoutOrAdmin();
+
+      // Write rule remains the same
+      allow write: if (request.auth != null && request.resource.data.curatorId == request.auth.uid)
+                   || isScoutOrAdmin();
+    }
+    
+    match /tributes/{tributeId} {
+        allow get: if resource.data.status == 'approved';
+        allow create: if request.auth != null;
+        allow list, read, update: if isScoutOrAdmin();
+    }
+
+    // Your subcollection rule (if you still use it elsewhere)
+    match /memorials/{memorialId}/tributes/{tributeId} {
+        allow create: if request.auth != null;
+        allow read: if resource.data.status == 'approved'
+                    || (request.auth != null && get(/databases/$(database)/documents/memorials/$(memorialId)).data.curatorId == request.auth.uid)
+                    || isScoutOrAdmin();
+        allow write: if (request.auth != null && get(/databases/$(database)/documents/memorials/$(memorialId)).data.curatorId == request.auth.uid)
+                     || isScoutOrAdmin();
+    }
+  }
+}

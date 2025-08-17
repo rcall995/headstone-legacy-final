@@ -1,0 +1,130 @@
+<div id="scout-mode-page">
+    <div class="scout-mode-toggle">
+        <button id="wizard-mode-btn" class="btn btn-sm btn-primary active">Single Pin</button>
+        <button id="multi-pin-mode-btn" class="btn btn-sm btn-outline-primary">Multi-Pin</button>
+    </div>
+
+    <div id="scout-wizard" class="step-1">
+        <div id="step-1-location" class="scout-step">
+            <div id="map-wrapper">
+                <div id="map"></div>
+                <div class="map-crosshair">📍</div>
+                <button id="gps-button" class="btn btn-light btn-lg"><i class="fas fa-crosshairs"></i></button>
+            </div>
+            <div class="scout-action-bar">
+                <p class="scout-instructions">Center the pin on the gravesite</p>
+                <button class="btn btn-primary btn-lg w-100" id="set-pin-button">Set Pin Location</button>
+            </div>
+        </div>
+
+        <div id="step-2-photo" class="scout-step">
+            <div class="scout-content">
+                <h4 class="mb-3 text-center">Step 2: Take a Photo</h4>
+                <div id="scout-photo-preview" class="mb-3">
+                    <div class="placeholder-box">
+                        <i class="fas fa-camera fa-3x text-muted"></i>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                     <label for="scout-photos" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-camera"></i> Take or Add Photo
+                    </label>
+                    <input class="form-control" type="file" id="scout-photos" accept="image/*" style="display: none;">
+                    <button type="button" class="btn btn-primary btn-lg" id="use-photo-button" style="display: none;">Use This Photo</button>
+                    <button type="button" class="btn btn-outline-primary" id="transcribe-button" disabled>
+                        <i class="fas fa-magic"></i> Transcribe Text (Optional)
+                    </button>
+                     <a href="#" id="back-to-location" class="text-center mt-2">Adjust Pin</a>
+                </div>
+                 <div id="transcribe-helper" class="form-text text-danger mt-1 text-center" style="display: none;">
+                    Sign in as a curator to use this feature.
+                </div>
+            </div>
+        </div>
+
+        <div id="step-3-details" class="scout-step">
+            <div class="scout-content">
+                <h4 class="mb-3 text-center">Step 3: Confirm Details</h4>
+                <form id="pin-form">
+                    <div class="mb-3">
+                        <label for="scout-name" class="form-label">Name of Deceased</label>
+                        <input type="text" class="form-control" id="scout-name" required>
+                    </div>
+                    <div class="row g-2">
+                        <div class="col-md-6 mb-3">
+                            <label for="scout-birth-date" class="form-label">Birth Date</label>
+                            <input type="date" class="form-control" id="scout-birth-date">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="scout-death-date" class="form-label">Death Date</label>
+                            <input type="date" class="form-control" id="scout-death-date">
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                        <a href="#" id="back-to-photo" class="text-center mt-2">Retake Photo</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="multi-pin-mode" style="display: none;">
+        <div id="multi-pin-map-wrapper">
+            <div id="multi-pin-map"></div>
+            <div class="map-crosshair">📍</div>
+            <button id="multi-pin-gps-btn" class="btn btn-light btn-lg"><i class="fas fa-crosshairs"></i></button>
+        </div>
+        <div id="multi-pin-footer">
+            <div id="captured-pins-list">
+                <small class="text-muted">No pins captured yet.</small>
+            </div>
+            <div class="multi-pin-actions">
+                <button id="add-pin-btn" class="btn btn-primary">Add Pin & Photo</button>
+                <button id="finish-batch-btn" class="btn btn-success" disabled>Finish & Save Batch</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="confirmationModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="contributorModal" tabindex="-1">
+     <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Submit for Review</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted">Since you're not signed in, please provide your name and email so we can credit you for this submission.</p>
+                <form id="contributorForm">
+                    <div class="mb-3">
+                        <label for="contributorName" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="contributorName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contributorEmail" class="form-label">Your Email</label>
+                        <input type="email" class="form-control" id="contributorEmail" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitContributionButton">Submit for Review</button>
+            </div>
+        </div>
+    </div>
+</div>

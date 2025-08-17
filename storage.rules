@@ -1,0 +1,28 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+  
+    // NEW: Allow any signed-in user to upload scout submissions to the pending folder.
+    match /memorials/pending/{allPaths=**} {
+      allow write: if request.auth != null;
+    }
+
+    // Allow any user to read public memorial photos and tributes
+    match /memorials/{memorialId}/{allPaths=**} {
+      allow read;
+    }
+
+    // Allow a logged-in user to upload photos to their own memorial
+    // (This applies when a curator edits an existing memorial)
+    match /memorials/{memorialId} {
+       allow write: if request.auth != null && resource.metadata.curatorId == request.auth.uid;
+    }
+    
+    // Allow a logged-in user to upload a photo for transcription to their own folder
+    match /transcriptions/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+  }
+}

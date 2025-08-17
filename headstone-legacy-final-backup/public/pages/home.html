@@ -1,0 +1,73 @@
+<div id="home">
+    <div class="text-center mb-5 hero-section py-5">
+        <h1 class="display-3 fw-bold">Preserve Their Story.<br />Connect Their Legacy.</h1>
+        <p class="hero-subtitle">A permanent, living tribute powered by community.</p>
+        <a href="/memorial-form?tier=memorial" class="btn btn-primary btn-lg mt-3">Create a Free Memorial</a>
+    </div>
+
+    <div class="container text-center py-4">
+        <div class="row g-4">
+            <div class="col-4">
+                <i class="fas fa-book-open fa-2x text-primary mb-2"></i>
+                <p class="mb-0 small"><strong>1. Create</strong></p>
+            </div>
+            <div class="col-4">
+                <i class="fas fa-qrcode fa-2x text-primary mb-2"></i>
+                <p class="mb-0 small"><strong>2. Link</strong></p>
+            </div>
+            <div class="col-4">
+                <i class="fas fa-mobile-alt fa-2x text-primary mb-2"></i>
+                <p class="mb-0 small"><strong>3. Share</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <h2 class="text-center mb-4">A Living History For Everyone</h2>
+        <ul class="nav nav-pills nav-fill mb-4" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="lovedone-tab" data-bs-toggle="tab" data-bs-target="#lovedone-tab-pane" type="button" role="tab">For a Loved One</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="yourself-tab" data-bs-toggle="tab" data-bs-target="#yourself-tab-pane" type="button" role="tab">For Yourself</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="historian-tab" data-bs-toggle="tab" data-bs-target="#historian-tab-pane" type="button" role="tab">For Historians</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="lovedone-tab-pane" role="tabpanel">
+                <div class="card card-body text-center border-0 bg-light">
+                    <p class="lead">Create a beautiful, lasting tribute. Share their unique story through biographies, cherished photos, and videos, offering comfort and connection for generations to come.</p>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="yourself-tab-pane" role="tabpanel">
+                 <div class="card card-body text-center border-0 bg-light">
+                    <p class="lead">Plan your own legacy with peace of mind. Write your story in your own words, choose your favorite photos, and leave a lasting message that will inspire and comfort your family for years to come.</p>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="historian-tab-pane" role="tabpanel">
+                 <div class="card card-body text-center border-0 bg-light">
+                    <p class="lead">Go beyond a single memorial. Help document and preserve history by mapping gravesites, linking family trees, and building a searchable, visual database for genealogists and future generations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Recently Added Memorials</h2>
+            <div id="recent-memorials-container" class="d-flex flex-nowrap overflow-auto pb-3 gap-3">
+                <div class="text-center p-5 w-100"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <h2 class="text-center mb-4">Explore the Legacy Map</h2>
+        <div id="homepage-map-container" class="shadow-sm w-100 h-100" style="min-height: 400px; border-radius: 10px;"></div>
+        <div class="text-center mt-4">
+             <a href="/scout-mode" class="btn btn-secondary">Become a Scout & Help Us Map</a>
+        </div>
+    </div>
+</div>

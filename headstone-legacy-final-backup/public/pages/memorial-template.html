@@ -1,0 +1,185 @@
+<div class="container py-4">
+    <div id="no-memorial-message" class="alert alert-warning text-center" style="display:none;">Memorial not found.</div>
+    
+    <div id="memorial-layout-container" style="display:none;">
+        <div class="row g-lg-5">
+            <div class="col-lg-4">
+                <div id="memorial-left-column">
+                    <div id="display-main-media" class="mb-3 text-center">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="height: 300px;"><i class="fas fa-image fa-3x text-muted"></i></div>
+                    </div>
+                    <div class="memorial-header mb-4 text-center">
+                        <h1 id="display-name" class="display-4"></h1>
+                        <p id="display-dates" class="h5 fw-light"></p>
+                    </div>
+                    <div id="memorial-actions" class="mb-4 text-center d-grid gap-2">
+                        <button id="share-button" class="btn btn-info"><i class="fas fa-share-alt"></i> Share</button>
+                        <button id="upgrade-plan-button" class="btn btn-success" style="display:none;"><i class="fas fa-arrow-alt-circle-up"></i> Upgrade Plan</button>
+                        <button class="btn btn-primary" id="edit-memorial-button" style="display:none;"><i class="fas fa-pencil-alt"></i> Edit</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card card-body mb-4">
+                    <h3 class="mb-3">Biography</h3>
+                    <p id="display-bio" class="lead"></p>
+                </div>
+                <div id="milestones-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Life Milestones</h3>
+                    <ul id="display-milestones" class="list-unstyled"></ul>
+                </div>
+                <div id="quotes-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Favorite Quotes</h3>
+                    <ul id="display-quotes" class="list-unstyled"></ul>
+                </div>
+                <div id="photos-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Photo Gallery</h3>
+                    <div id="display-photos" class="row g-2"></div>
+                </div>
+                <div id="historian-content-display" style="display:none;">
+                    <div class="card card-body mb-4">
+                        <h3 class="mb-3">Cemetery Location</h3>
+                        <p><strong>Address:</strong> <span id="display-cemetery-address"></span></p>
+                        <div id="map-container" class="rounded" style="height: 300px; width: 100%;"></div>
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="/scout-mode" id="improve-location-btn" class="btn btn-success py-3 fs-5 fw-bold" style="display: none;"><i class="fas fa-map-marker-alt me-2"></i>Please help us improve this PRECISE grave location</a>
+                            <a href="/scout-mode" id="pin-new-relative-btn" class="btn btn-primary" style="display: none;"><i class="fas fa-plus me-2"></i>Pin a Nearby Relative's Memorial</a>
+                        </div>
+                    </div>
+                    <div id="relatives-section-display" class="card card-body mb-4" style="display:none;">
+                        <h3 class="mb-3">Known Relatives</h3>
+                        <ul id="display-relatives" class="list-unstyled"></ul>
+                    </div>
+                </div>
+                <div id="tributes-section-display" class="card card-body mb-4" style="display:none;">
+                    <h3 class="mb-3">Visitor Tributes</h3>
+                    <div id="display-tributes"></div>
+                    <button id="openTributeModalBtn" class="btn btn-outline-primary mt-3"><i class="fas fa-pen-nib"></i> Leave Your Tribute</button>
+                </div>
+                <div id="scout-promo-section" class="card card-body bg-light">
+                    <h3 class="mb-3">Help Grow This Family Tree</h3>
+                    <p>Become a Legacy Scout to help map the graves of other relatives. By finding and pinning their memorials, you can connect the branches of this family tree for future generations to discover.</p>
+                    <a href="/scout" class="btn btn-secondary mt-2">Learn About the Scout Program</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="relative-item-template">
+    <li class="d-flex justify-content-between align-items-center mb-2 p-2 border rounded">
+        <span class="relative-info"></span>
+        <div>
+            <a href="#" class="btn btn-sm btn-outline-secondary view-memorial-btn" style="display: none;">View Memorial <i class="fas fa-arrow-right fa-sm"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-primary find-pin-btn" style="display: none;"><i class="fas fa-map-pin"></i> Find & Pin</a>
+        </div>
+    </li>
+</template>
+
+<div class="modal" id="tributeModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Leave a Tribute</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="tributeForm">
+                    <div class="mb-3">
+                        <label for="tributeName" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="tributeName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tributeMessage" class="form-label">Message or Memory</label>
+                        <textarea class="form-control" id="tributeMessage" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tributePhoto" class="form-label">Add a Photo (Optional)</label>
+                        <input class="form-control" type="file" id="tributePhoto" accept="image/*">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitTributeButton">Submit Tribute</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="welcomeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title w-100 text-center" id="welcomeModalLabel">Welcome to the Memorial for<br><span id="deceased-name-placeholder"></span></h5>
+            </div>
+            <div class="modal-body">
+                <p>You've accessed a permanent digital tribute linked to this physical resting place.</p>
+                <p>Explore their story, leave a tribute, and help connect their family's legacy for future generations.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">View Memorial</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="upgradeModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Upgrade Memorial Plan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Choose a new plan to unlock more features for this memorial.</p>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card pricing-card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title">Storyteller</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">Photos & Milestones</h6>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>✓ Everything in Memorial</li>
+                                    <li>✓ Photo Gallery</li>
+                                    <li>✓ Life Milestones</li>
+                                    <li>✓ Favorite Quotes</li>
+                                </ul>
+                                <button class="btn btn-primary mt-auto upgrade-button" data-tier="storyteller">Select Plan</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card pricing-card h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title">Legacy</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">Videos & Tributes</h6>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>✓ Everything in Storyteller</li>
+                                    <li>✓ Video Gallery</li>
+                                    <li>✓ Visitor Tributes</li>
+                                </ul>
+                                <button class="btn btn-primary mt-auto upgrade-button" data-tier="legacy">Select Plan</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card pricing-card historian-tier h-100">
+                            <div class="card-body d-flex flex-column">
+                                <h4 class="card-title">Historian</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">Mapping & Family Tree</h6>
+                                <ul class="list-unstyled mt-3 mb-4">
+                                    <li>✓ Everything in Legacy</li>
+                                    <li>✓ Cemetery Geolocation</li>
+                                    <li>✓ Link Relatives</li>
+                                </ul>
+                                <button class="btn btn-primary mt-auto upgrade-button" data-tier="historian">Select Plan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

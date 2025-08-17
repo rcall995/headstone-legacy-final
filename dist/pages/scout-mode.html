@@ -1,0 +1,116 @@
+<div id="scout-mode-page">
+    <a href="/" id="scout-home-button" class="btn btn-light"><i class="fas fa-times"></i> Exit</a>
+
+    <div class="scout-mode-toggle">
+        <button id="wizard-mode-btn" class="btn btn-sm btn-primary active">Single Pin</button>
+        <button id="multi-pin-mode-btn" class="btn btn-sm btn-outline-primary">Multi-Pin</button>
+        <button id="add-scout-mode-button" class="btn btn-sm btn-success" style="display: none;">
+            <i class="fas fa-arrow-down"></i> Install Scout
+        </button>
+    </div>
+
+    <div id="scout-wizard" class="step-1">
+        <div class="scout-step" id="step-1-location">
+            <div class="map-wrapper">
+                <div id="map"></div>
+                <div class="map-crosshair">📍</div>
+                <button id="gps-button" class="btn btn-light btn-lg"><i class="fas fa-crosshairs"></i></button>
+            </div>
+            <div class="scout-footer">
+                <p class="m-0">Center the pin on the gravesite.</p>
+                <div>
+                    <button id="skip-photo-button" class="btn btn-secondary">Set Pin & Skip Photo</button>
+                    <button id="set-pin-button" class="btn btn-primary">Set Pin & Add Photo</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="scout-step" id="step-2-photo">
+            <div class="scout-content">
+                <h4 class="text-center mb-3">Take a Photo of the Headstone</h4>
+                <div id="scout-photo-preview">
+                    <div class="placeholder-box">
+                        <i class="fas fa-camera fa-3x text-muted"></i>
+                    </div>
+                </div>
+                <input type="file" id="scout-photos" accept="image/*" capture="environment" multiple class="form-control my-3">
+                <p id="transcribe-helper" class="text-muted small text-center" style="display: none;">Sign in as a curator to use AI transcription.</p>
+            </div>
+            <div class="scout-footer">
+                <a href="#" id="back-to-location" class="btn btn-secondary">Back</a>
+                <button id="transcribe-button" class="btn btn-info" disabled><i class="fas fa-magic"></i> Transcribe</button>
+                <button id="use-photo-button" class="btn btn-primary" style="display: none;">Use Photo</button>
+            </div>
+        </div>
+
+        <div class="scout-step" id="step-3-details">
+            <div class="scout-content">
+                <h4 class="mb-3">Confirm Details</h4>
+                <form id="pin-form">
+                    <div class="mb-3">
+                        <label for="scout-name" class="form-label">Name</label>
+                        <input type="text" id="scout-name" class="form-control">
+                    </div>
+                    <div class="mb-3" id="relationship-wrapper" style="display: none;">
+                        <label for="scout-relationship" class="form-label">Relationship to Source Memorial</label>
+                        <input type="text" id="scout-relationship" class="form-control" placeholder="e.g., Son, Mother, Brother...">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="scout-birth-date" class="form-label">Date of Birth</label>
+                            <input type="text" id="scout-birth-date" class="form-control">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="scout-death-date" class="form-label">Date of Death</label>
+                            <input type="text" id="scout-death-date" class="form-control">
+                        </div>
+                    </div>
+                </form>
+                <div id="ocr-results-wrapper" class="mt-4" style="display: none;">
+                    <label for="ocr-full-text" class="form-label fw-bold">Full Transcribed Text:</label>
+                    <textarea id="ocr-full-text" class="form-control" rows="5" readonly></textarea>
+                    <small class="form-text text-muted">You can copy and paste from this box if the fields above are not correct.</small>
+                </div>
+            </div>
+            <div class="scout-footer">
+                <a href="#" id="back-to-photo" class="btn btn-secondary">Back</a>
+                <button id="wizard-submit-button" type="submit" form="pin-form" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="multi-pin-mode" style="display: none;">
+        <div id="multi-pin-map-wrapper">
+            <div id="multi-pin-map"></div>
+            <div class="map-crosshair">📍</div>
+            <button id="multi-pin-gps-btn" class="btn btn-light btn-lg"><i class="fas fa-crosshairs"></i></button>
+        </div>
+        <div id="multi-pin-footer">
+            <div id="captured-pins-list">
+                <small class="text-muted">No pins captured yet.</small>
+            </div>
+            <div class="multi-pin-actions">
+                <button id="add-pin-btn" class="btn btn-primary">Add Pin & Photo</button>
+                <button id="finish-batch-btn" class="btn btn-success" disabled>Finish & Save Batch</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="contributorModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title">Contribute as a Guest</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <p>Since you are not signed in as a curator, this submission will be sent for review. Please provide your name and email.</p>
+                <form id="contributorForm">
+                    <div class="mb-3"><label for="contributorName" class="form-label">Your Name</label><input type="text" id="contributorName" class="form-control" required></div>
+                    <div class="mb-3"><label for="contributorEmail" class="form-label">Your Email</label><input type="email" id="contributorEmail" class="form-control" required></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="submitContributionButton">Submit for Review</button>
+            </div>
+        </div>
+    </div>
+</div>

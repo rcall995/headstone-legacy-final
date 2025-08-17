@@ -1,0 +1,156 @@
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 id="form-title">Create Your Memorial</h1>
+        <button class="btn btn-outline-secondary" id="go-back-button"><i class="fas fa-arrow-left"></i> Go Back</button>
+    </div>
+
+    <form id="memorialForm" class="needs-validation" novalidate>
+        <input type="hidden" id="memorial-tier" name="memorial-tier">
+
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card card-body mb-4">
+                    <h4 class="mb-3">Personal Information</h4>
+                    <div class="mb-3">
+                        <label for="memorial-name" class="form-label">Name of the Deceased</label>
+                        <input type="text" class="form-control" id="memorial-name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="memorial-title" class="form-label">Epitaph / Title</label>
+                        <input type="text" class="form-control" id="memorial-title">
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="memorial-birth-date" class="form-label">Date of Birth</label>
+                            <input type="text" class="form-control" id="memorial-birth-date" placeholder="yyyy-mm-dd or yyyy">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="memorial-death-date" class="form-label">Date of Death</label>
+                            <input type="text" class="form-control" id="memorial-death-date" placeholder="yyyy-mm-dd or yyyy">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-body mb-4">
+                    <h4 class="mb-3">Biography / Story</h4>
+                    <div class="card bg-light mb-3">
+                        <div class="card-body">
+                            <p class="card-text text-muted small">Need help getting started? Answer a few questions below and let our AI assistant help write the biography for you.</p>
+                            <div class="mb-2">
+                                <label for="prompt-hobbies" class="form-label small mb-0">What were their favorite hobbies or passions?</label>
+                                <input type="text" id="prompt-hobbies" class="form-control form-control-sm">
+                            </div>
+                            <div class="mb-2">
+                                <label for="prompt-memory" class="form-label small mb-0">What is a favorite memory you have of them?</label>
+                                <input type="text" id="prompt-memory" class="form-control form-control-sm">
+                            </div>
+                            <div class="mb-3">
+                                <label for="prompt-personality" class="form-label small mb-0">How would you describe their personality?</label>
+                                <input type="text" id="prompt-personality" class="form-control form-control-sm">
+                            </div>
+                            <button type="button" class="btn btn-primary btn-sm w-100" id="generate-bio-btn">
+                                <i class="fas fa-magic"></i> Write Biography with AI ✨
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="memorial-bio" class="form-label">Final Biography (edit here)</label>
+                        <textarea class="form-control" id="memorial-bio" rows="8" required></textarea>
+                    </div>
+                </div>
+
+                <div class="card card-body mb-4">
+                    <div id="storyteller-fields">
+                        <div id="milestones-section" class="mb-4" style="display:none;">
+                            <h4 class="mb-3">Life Milestones</h4>
+                            <p class="text-muted small">Click and drag the <i class="fas fa-grip-vertical"></i> handle to reorder milestones.</p>
+                            <div id="milestones-container"></div>
+                            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" id="add-milestone-button"><i class="fas fa-plus"></i> Add Milestone</button>
+                        </div>
+                        <div id="quotes-section" style="display:none;">
+                            <h4 class="mb-3">Favorite Quotes</h4>
+                            <div id="quotes-container"></div>
+                            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" id="add-quote-button"><i class="fas fa-plus"></i> Add Quote</button>
+                        </div>
+                    </div>
+                     <div id="historian-fields" style="display:none;">
+                        <hr class="my-4">
+                        <h4 class="mb-3">Historian Tier Options</h4>
+                        <div class="mb-3"><label for="memorial-cemetery-name" class="form-label">Cemetery Name</label><input type="text" class="form-control" id="memorial-cemetery-name"></div>
+                        <div class="mb-3"><label for="memorial-cemetery-address" class="form-label">Cemetery Address</label><input type="text" class="form-control" id="memorial-cemetery-address"></div>
+                        <div id="relatives-section" class="mb-3">
+                            <label class="form-label h4">Known Relatives</label>
+                            <div id="relatives-container"></div>
+                            <button type="button" class="btn btn-outline-secondary btn-sm mt-2" id="add-relative-button"><i class="fas fa-plus"></i> Add Relative</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card card-body">
+                    <h4 class="mb-3">Memories & Media</h4>
+                    <div class="mb-3">
+                        <label for="memorial-main-photo" class="form-label">Main Photo</label>
+                        <input type="file" class="form-control" id="memorial-main-photo" accept="image/*">
+                        <div id="main-photo-preview" class="mt-2 row g-2"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="memorial-photos" class="form-label">Additional Photos</label>
+                        <input type="file" class="form-control" id="memorial-photos" multiple accept="image/*">
+                        <div id="photos-preview" class="mt-2 row g-2"></div>
+                    </div>
+                    <div id="videos-section" class="mb-3" style="display:none;">
+                        <label for="memorial-videos" class="form-label">Videos</label>
+                        <input type="file" class="form-control" id="memorial-videos" multiple accept="video/*">
+                        <div id="videos-preview" class="mt-2 row g-2"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-4 d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-danger" id="delete-memorial-button" style="display: none;">
+                <i class="fas fa-trash"></i> Delete Memorial
+            </button>
+            <div>
+                <button type="button" class="btn btn-secondary me-2" id="cancel-memorial-button">Cancel</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="save-memorial-button">Save Memorial</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="linkRelativeModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Link to Existing Memorial</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="relativeSearchInput" class="form-label">Search by name:</label>
+                    <input type="search" class="form-control" id="relativeSearchInput" placeholder="Start typing a name...">
+                </div>
+                <div id="relative-search-results" class="list-group"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<template id="relative-input-template">
+    <div class="row g-2 mb-2 dynamic-input-group align-items-center">
+        <input type="hidden" class="relative-memorial-id">
+        <div class="col-md-4">
+            <input type="text" class="form-control relative-name-input" placeholder="Relative's Name" required>
+        </div>
+        <div class="col-md-4">
+            <input type="text" class="form-control relative-relationship-input" placeholder="Relationship" required>
+        </div>
+        <div class="col-md-4 d-flex">
+            <button type="button" class="btn btn-outline-primary btn-sm w-100 me-2 link-btn">Link to Memorial</button>
+            <button type="button" class="btn btn-outline-danger btn-sm remove-btn"><i class="fas fa-trash"></i></button>
+        </div>
+    </div>
+</template>

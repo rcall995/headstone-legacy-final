@@ -1,0 +1,85 @@
+<div class="container py-5">
+    <div id="auth-section" class="card p-4 mx-auto" style="max-width: 400px;">
+        <div id="login-form">
+            <h4 class="text-center mb-3">Curator Sign In</h4>
+            <form id="signInForm">
+                <div class="mb-3"><label for="signInEmail" class="form-label">Email address</label><input type="email" class="form-control" id="signInEmail" required></div>
+                <div class="mb-3"><label for="signInPassword" class="form-label">Password</label><input type="password" class="form-control" id="signInPassword" required></div>
+                <div class="d-grid"><button type="submit" class="btn btn-primary">Sign In</button></div>
+            </form>
+            <div class="text-center mt-3">
+                <a href="#" id="forgot-password-link">Forgot Password?</a>
+                <p class="mt-2 mb-0">Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+            </div>
+        </div>
+        <div id="signup-form" style="display: none;">
+            <h4 class="text-center mb-3">Create Curator Account</h4>
+            <form id="signUpForm">
+                <div class="mb-3"><label for="signUpName" class="form-label">Full Name</label><input type="text" class="form-control" id="signUpName" required></div>
+                <div class="mb-3"><label for="signUpEmail" class="form-label">Email address</label><input type="email" class="form-control" id="signUpEmail" required></div>
+                <div class="mb-3"><label for="signUpPassword" class="form-label">Password</label><input type="password" class="form-control" id="signUpPassword" required minlength="6"></div>
+                <div class="d-grid"><button type="submit" class="btn btn-primary">Sign Up</button></div>
+            </form>
+            <p class="text-center mt-3 mb-0">Already have an account? <a href="#" id="show-signin">Sign in</a></p>
+        </div>
+    </div>
+
+    <div id="dashboard" class="card p-4" style="display: none;">
+        <div class="mb-4">
+            <h1 class="text-center">Curator Panel</h1>
+            <h3 class="text-center fw-light">Welcome, <span id="curator-name">Curator</span>!</h3>
+        </div>
+
+        <div id="on-this-day-section" class="mb-4" style="display: none;">
+            <h3 class="mb-3">On This Day</h3>
+            <div id="on-this-day-list" class="list-group"></div>
+        </div>
+        
+        <div id="drafts-section" class="card bg-light mb-4">
+            <div class="card-header"><h3 class="mb-0">Your Drafts (Processing Queue)</h3></div>
+            <div class="card-body">
+                <p class="text-muted">Memorials you've pinned that are waiting for details to be filled in.</p>
+                <div id="draft-list-container"><p class="text-muted">Loading your drafts...</p></div>
+            </div>
+        </div>
+
+        <div class="card bg-light mb-4">
+            <div class="card-header"><h3 class="mb-0">Moderation Queue</h3></div>
+            <div class="card-body">
+                <div id="pending-section" class="mb-4">
+                    <h4 class="mb-3">Memorial Submissions for Review</h4>
+                    <div id="pending-list-container"><p class="text-muted">Loading pending submissions...</p></div>
+                </div>
+                <div id="pending-tributes-section">
+                    <h4 class="mb-3">Tributes for Review</h4>
+                    <div id="pending-tributes-container"><p class="text-muted">Loading pending tributes...</p></div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <h3 class="mb-3">My Memorials</h3>
+        <div id="memorial-list-container">
+            <p class="text-muted">Loading your memorials...</p>
+        </div>
+    </div>
+</div>
+
+<template id="memorial-item-template">
+    <div class="card mb-3">
+        <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+                <span class="memorial-name fw-bold"></span>
+                <span class="tier-badge ms-2"></span>
+            </div>
+            <div>
+                <a href="#" class="btn btn-secondary btn-sm me-2 view-link">View</a>
+                <a href="#" class="btn btn-primary btn-sm me-2 edit-link">Edit</a>
+                <button class="btn btn-outline-danger btn-sm delete-link">Delete</button>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="pending-item-template"><div class="card mb-3"><div class="card-body d-flex align-items-center justify-content-between"><div class="d-flex align-items-center"><img src="https://placeholder.com/60" alt="Thumbnail" class="me-3 rounded submission-thumbnail" style="width: 60px; height: 60px; object-fit: cover;"><div><strong class="submission-name"></strong><br><small class="text-muted submission-byline"></small></div></div><div><a href="#" target="_blank" class="btn btn-secondary btn-sm me-2 location-link" title="View location on Google Maps"><i class="fas fa-map-marker-alt"></i> View Pin</a><button class="btn btn-success btn-sm me-2 approve-btn">Approve</button><button class="btn btn-danger btn-sm delete-btn">Delete</button></div></div></div></template>
+<template id="pending-tribute-template"><div class="card mb-3"><div class="card-body"><div class="d-flex align-items-center justify-content-between"><div><blockquote class="blockquote mb-0"><p class="tribute-message fs-6"></p><footer class="blockquote-footer"><span class="tribute-author"></span> for <cite class="tribute-memorial-name"></cite></footer></blockquote></div><div><button class="btn btn-success btn-sm me-2 approve-tribute-btn">Approve</button><button class="btn btn-danger btn-sm reject-tribute-btn">Reject</button></div></div></div></div></template>
